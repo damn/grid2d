@@ -28,11 +28,6 @@ user=> (cells mygrid)
 ({:cell [0 0]} {:cell [0 1]} {:cell [0 2]} {:cell [0 3]} {:cell [1 0]} {:cell [1 1]} {:cell [1 2]} {:cell [1 3]} {:cell [2 0]} {:cell [2 1]} {:cell [2 2]} {:cell [2 3]})
 user=> (posis mygrid)
 ([0 0] [0 1] [0 2] [0 3] [1 0] [1 1] [1 2] [1 3] [2 0] [2 1] [2 2] [2 3])
-user=> (wi
-width                  with-bindings          with-bindings*
-with-in-str            with-loading-context   with-local-vars
-with-meta              with-open              with-out-str
-with-precision         with-redefs            with-redefs-fn
 user=> (width mygrid)
 3
 user=> (height mygrid)
