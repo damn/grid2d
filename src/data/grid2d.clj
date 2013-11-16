@@ -65,7 +65,11 @@
   (containsKey [this [x y]]
     (and (contains? data x)
          (contains? (data 0) y)))
-  (entryAt [this k]));returns IMapEntry, used in find
+  (entryAt [this k]);returns IMapEntry, used in find
+
+ Object
+  (toString [this]
+    (str "width " (width this) ", height " (height this))))
 
 (defn- vector2d [w h f]
   (mapv (fn [x] (mapv (fn [y] (f [x y]))
