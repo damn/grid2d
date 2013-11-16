@@ -10,7 +10,8 @@ A two dimensional grid data structure that is implemented as a 2d vector.
 
 ## Usage
 
-Grids implement **clojure.lang.ILookup**, **IFn**, **Seqable**, **Associative** and a new **Grid2D** protocol.
+VectorGrid implements the following **clojure.lang** Interfaces: **ILookup**, **IFn**, **Seqable** and **Associative**.
+It also implements a **Grid2D** protocol.
 
 So you can use **get**, **assoc**, **contains?**, **seq** (and map,for,doseq...) on it.
 
