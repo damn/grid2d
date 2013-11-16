@@ -1,12 +1,18 @@
 # grid2d
 
-A simple two dimensional grid data structure that is implemented as vectors of vectors.
+A two dimensional grid data structure that is implemented as a 2d vector.
+
+## leiningen
+
+```clojure
+[grid2d "0.1.0-SNAPSHOT"]
+```
 
 ## Usage
 
-Grids implement clojure.lang.ILookup, IFn, Seqable, Associative and a new Grid2D protocol.
+Grids implement **clojure.lang.ILookup**, **IFn**, **Seqable**, **Associative** and a new **Grid2D** protocol.
 
-So you can use get, assoc, contains?, seq (and map,for,doseq...) on it.
+So you can use **get**, **assoc**, **contains?**, **seq** (and map,for,doseq...) on it.
 
 ``` clojure
 (defprotocol Grid2D
@@ -64,7 +70,7 @@ user=> (clojure.pprint/pprint (.data mygrid))
  [:mouse :cat :mouse :mouse]
  [:mouse :mouse :mouse :mouse]]
 nil
-``` 
+```
 
 ## License
 
