@@ -35,10 +35,13 @@
   (height [this] (count (data 0)))
 
   clojure.lang.ILookup
-  (valAt [this k] (-> data (nth (k 0) nil) (nth (k 1) nil)))
+  (valAt [this p]  ; {x 0 y 1} or [x y] is much slower
+    (-> data
+        (nth (nth p 0) nil)
+        (nth (nth p 1) nil)))
 
   clojure.lang.IFn
-  (invoke [this k] (.valAt this k)) ; get-in quicker! .valAt is redirection!
+  (invoke [this p] (.valAt this p))
 
   clojure.lang.Seqable
   (seq [this] 
@@ -46,16 +49,16 @@
 
   clojure.lang.IPersistentCollection
   (equiv [this obj]
-    (and (= VectorGrid (class obj)) ; TODO equiv should implement value and not type comparison?
+    (and (= VectorGrid (class obj))
          (= (.data ^VectorGrid obj) data)))
 
   clojure.lang.Associative
-  (assoc [this k v]
-    (VectorGrid. (assoc-in data k v)))
+  (assoc [this p v]
+    (VectorGrid. (assoc-in data p v))) ; TODO assoc-in recursion expensive?
   (containsKey [this [x y]]
     (and (contains? data x)
          (contains? (data 0) y)))
-  (entryAt [this k]);returns IMapEntry, used in find
+  ;(entryAt [this k]) returns IMapEntry, used in find
 
   Object
   (toString [this]
@@ -156,3 +159,28 @@
 ; "Elapsed time: 2909.678 msecs"
 ; user=> (time (dotimes [_ 1e8] (.nth ^Indexed (.nth ^Indexed agrid 10) 20)))
 ; "Elapsed time: 1637.728 msecs"
+;
+(comment
+  (let [data (.data (create-grid 100 100 identity))
+        p [23 43]
+        n 1e7] 
+    (time (dotimes [_ n] 
+            (-> data 
+                (nth (p 0) nil) 
+                (nth (p 1) nil))))
+    (time (dotimes [_ n] 
+            (-> data 
+                (nth (nth p 0) nil) 
+                (nth (nth p 1) nil))))))
+; 250ms
+; 230ms
+
+(comment
+  (let [g (create-grid 100 100 identity)
+        n 1e8] 
+    (time (dotimes [_ n]     (g [10 13])))
+    (time (dotimes [_ n] (get g [10 13])))
+    (time (dotimes [_ n] (.valAt ^clojure.lang.ILookup g [10 13])))))
+;"Elapsed time: 2440.053 msecs" -> IFn -> .valAt
+;"Elapsed time: 2964.275 msecs" -> clojure.core/get -> clojure.lang.RT/get -> .valAt
+;"Elapsed time: 2438.005 msecs" -> .valAt

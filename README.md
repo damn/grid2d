@@ -1,11 +1,11 @@
-# grid2d
+# Grid2D
 
 A two dimensional grid data structure that is implemented as a 2d vector.
 
-## leiningen
+## Leiningen
 
 ```clojure
-[grid2d "0.1.0-SNAPSHOT"]
+[grid2d "0.1.0"]
 ```
 
 ## Usage
@@ -71,10 +71,3 @@ user=> (clojure.pprint/pprint (.data mygrid))
  [:mouse :mouse :mouse :mouse]]
 nil
 ```
-
-## License
-
-Copyright © 2013 FIXME
-
-Distributed under the Eclipse Public License either version 1.0 or (at
-your option) any later version.
