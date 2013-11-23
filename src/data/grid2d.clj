@@ -91,7 +91,7 @@
 (defn mapgrid->vectorgrid
   "Transforms a grid of {position value} to a grid2d.
   Returns [grid convert-fn]: convert-fn converts a position of the old grid to a position of the new one."
-  [grid calc-newgrid-value] 
+  [grid calc-newgrid-value]
   (let [posis (keys grid)
         xs (map #(% 0) posis)
         min-x (apply min xs)
@@ -101,22 +101,22 @@
         max-y (apply max ys)
         width (inc (- max-x min-x))
         height (inc (- max-y min-y))
-        convert (fn [[x y]] [(- x min-x -1) 
+        convert (fn [[x y]] [(- x min-x -1)
                              (- y min-y -1)])]
     ; +2 so there are walls on all borders around the farthest ground cells
-    [(create-grid (+ width 2) (+ height 2) 
+    [(create-grid (+ width 2) (+ height 2)
                   (fn [[x y]]
                     ; new grid starts 1 left/top of leftest cell
-                    (calc-newgrid-value (get grid [(+ x min-x -1) 
+                    (calc-newgrid-value (get grid [(+ x min-x -1)
                                                    (+ y min-y -1)]))))
      convert]))
 
 ;;
 
 (defn get-4-neighbour-positions [[x y]]
-  [[(inc x) y] 
-   [(dec x) y] 
-   [x (inc y)] 
+  [[(inc x) y]
+   [(dec x) y]
+   [x (inc y)]
    [x (dec y)]])
 
 (defn get-8-neighbour-positions [[x y]]
@@ -127,15 +127,15 @@
 
 ;;
 
-; Could put width and height as deftype arguments instead of protocol functions 
+; Could put width and height as deftype arguments instead of protocol functions
 (comment (let [g (create-grid 5 5 identity)]
            (compare-times 100000
                           (.width ^VectorGrid g) ; 1.575   ms
                           (.width g)             ; 305.477 ms
                           (width g))))           ; 2.761   ms
 
-; getting multiple cells could be speed up 
-; if multiple posis in same row => only 1 row access 
+; getting multiple cells could be speed up
+; if multiple posis in same row => only 1 row access
 
 ;Could also use a dogrid or docells function instead of doseq [p cell] -> could be a lot faster
 ;Time of:  (docells grid myfunc)
@@ -163,21 +163,21 @@
 (comment
   (let [data (.data (create-grid 100 100 identity))
         p [23 43]
-        n 1e7] 
-    (time (dotimes [_ n] 
-            (-> data 
-                (nth (p 0) nil) 
+        n 1e7]
+    (time (dotimes [_ n]
+            (-> data
+                (nth (p 0) nil)
                 (nth (p 1) nil))))
-    (time (dotimes [_ n] 
-            (-> data 
-                (nth (nth p 0) nil) 
+    (time (dotimes [_ n]
+            (-> data
+                (nth (nth p 0) nil)
                 (nth (nth p 1) nil))))))
 ; 250ms
 ; 230ms
 
 (comment
   (let [g (create-grid 100 100 identity)
-        n 1e8] 
+        n 1e8]
     (time (dotimes [_ n]     (g [10 13])))
     (time (dotimes [_ n] (get g [10 13])))
     (time (dotimes [_ n] (.valAt ^clojure.lang.ILookup g [10 13])))))
