@@ -184,3 +184,19 @@
 ;"Elapsed time: 2440.053 msecs" -> IFn -> .valAt
 ;"Elapsed time: 2964.275 msecs" -> clojure.core/get -> clojure.lang.RT/get -> .valAt
 ;"Elapsed time: 2438.005 msecs" -> .valAt
+
+;(defn- vector1d [width height xyfn]
+;  (mapv (fn [i]
+;          (let [x (mod i width)
+;                y (int (/ i width)) ]
+;            (xyfn [x y])))
+;        (range (* width height))))
+;
+;(let [width 100,height 100
+;      g2d (vector2d width height identity)
+;      g1d (vector1d width height identity)
+;      x 10,y 13
+;      n 1e7]
+;  (time (dotimes [_ n] (-> g2d (nth x nil) (nth y nil)))) ; 439ms
+;  (time (dotimes [_ n] (nth g1d (+ x (* width y)))))      ; 587ms
+;  )
