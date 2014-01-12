@@ -20,7 +20,7 @@
                 (persistent! v))))
     (range width)))
 
-; TODO could add as fields: posis,cells,width,height,seq (maybe delays?)
+; TODO could add as fields: posis,cells,seq (maybe delays?)
 (deftype VectorGrid [data]
 
   Grid2D
