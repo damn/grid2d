@@ -29,3 +29,10 @@
 (deftest assoc-test
   (let [grid (create-grid 5 5 identity)]
     (is (= :foo (get (assoc grid [3 3] :foo) [3 3])))))
+
+(deftest hashcode-equals-test
+  (let [a (create-grid 5 5 identity)
+        b (create-grid 5 5 identity)]
+    (is (.equals a b))
+    (is (.equals b a))
+    (is (= (.hashCode a) (.hashCode b)))))

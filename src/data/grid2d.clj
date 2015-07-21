@@ -44,7 +44,7 @@
   (invoke [this p] (.valAt this p))
 
   clojure.lang.Seqable
-  (seq [this] 
+  (seq [this]
     (map #(vector %1 %2) (posis this) (cells this)))
 
   clojure.lang.IPersistentCollection
@@ -61,6 +61,10 @@
   ;(entryAt [this k]) returns IMapEntry, used in find
 
   Object
+  (hashCode [this] (.hashCode data))
+  (equals [this obj]
+    (and (= VectorGrid (class obj))
+         (.equals (.data ^VectorGrid obj) data)))
   (toString [this]
     (str "width " (width this) ", height " (height this))))
 
