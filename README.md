@@ -4,8 +4,10 @@ A two dimensional grid data structure that is implemented as a 2d vector.
 
 ## Leiningen
 
+[![](https://jitpack.io/v/damn/grid2d.svg)](https://jitpack.io/#damn/grid2d)
+
 ```clojure
-[grid2d "0.1.0-SNAPSHOT"]
+[com.github.damn/grid2d "1.0"]
 ```
 
 ## Usage
