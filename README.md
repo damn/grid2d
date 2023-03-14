@@ -1,6 +1,7 @@
 # Grid2D
 
-A two dimensional grid data structure that is implemented as a 2d vector.
+A two dimensional grid data structure that is implemented as a 2d vector. 
+Reason is that it is much faster than using a map of [x y] positions to values.
 
 ## Leiningen
 
